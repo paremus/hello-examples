@@ -1,9 +1,17 @@
 <system xmlns="http://schema.paremus.com/sf/1.2" version="1.0.0" name="hello" boundary="fibre" repopath="">
     <description>
-        A Greeting service and viewer - Declarative Services Version.
+        A Configurable Greeting service and viewer - Declarative Services Version.
     </description>
     <admin group="demo"/>
     
     <!--  Declarative Services Greeting service  -->
-    <system.part name="hello-app"/>
+    <system.part name="hello-app">
+        <config pid="com.example.hello.ds">
+            <property name="language" value="en"/>
+        </config>
+        
+        <config pid="org.apache.felix.http">
+            <property name="org.osgi.service.http.port" value="8192"/>
+        </config>
+    </system.part>
 </system>

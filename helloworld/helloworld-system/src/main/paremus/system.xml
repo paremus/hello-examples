@@ -1,9 +1,21 @@
 <system xmlns="http://schema.paremus.com/sf/1.2" version="1.0.0" name="hello" boundary="fibre" repopath="">
     <description>
-        A Greeting service and viewer - Declarative Services Version.
+        A remote Greeting service and viewer - Declarative Services Version.
     </description>
     <admin group="demo"/>
     
     <!--  Declarative Services Greeting service  -->
-    <system.part name="hello-app"/>
+    <system.part name="hello-app">
+        
+        <contract features="(AppLayer=true)"/>
+
+    </system.part>
+    
+    <!-- Remote Web viewer -->
+    <system.part name="hello-web">
+
+        <contract features="(WebLayer=true)"/>
+
+    </system.part>
 </system>
+

@@ -1,6 +1,6 @@
 <system xmlns="http://schema.paremus.com/sf/1.2" version="1.0.0" name="hello" boundary="fibre" repopath="">
     <description>
-        A remote Greeting service and viewer - Declarative Services Version.
+        A multiple remote Greeting service and viewer - Declarative Services Version.
     </description>
     <admin group="demo"/>
     
@@ -9,6 +9,11 @@
         
         <contract features="(AppLayer=true)"/>
 
+        <replication.handler name="scale" type="scalable">
+             <property name="scaleFactor" value="1" type="float" />
+             <property name="minimum" value="1" type="integer" />
+          </replication.handler>
+      
     </system.part>
     
     <!-- Remote Web viewer -->

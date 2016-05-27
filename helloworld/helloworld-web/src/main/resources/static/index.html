@@ -7,23 +7,60 @@
     <link rel="stylesheet" href="css/app.css">
     
     <script>
+      repopulateResults = function(result, div) {
+          while (div.firstChild) {
+              div.removeChild(div.firstChild);
+          }
+                                  
+          for(var i = 0, size = result.available.length; i < size ; i++) {
+              var id = result.available[i];
+              var child = document.createElement("div");
+              div.appendChild(child);
+              child.id = id;
+              child.class = 'span3';
+              if(result.messages[id]) {
+                  child.textContent = result.messages[id];
+              } else {
+                  child.textContent = id + ' is available';
+              }
+          }
+      };
+      
       doUpdate = function() {
        
-          req = new XMLHttpRequest();
+          var req = new XMLHttpRequest();
         
           req.onreadystatechange = function() {
                   if (req.readyState==4) {
-                      document.getElementById("greetings").innerHTML = 
-                           req.status == 200 ? req.responseText : "An error occurred!";
+                      var result = null;
+                      var div = document.getElementById("results")
+
+                      if (req.status==200) {
+                          result = JSON.parse(req.responseText);
+                          if(!result.available.length) {
+                              result.available = ["foo"];
+                              result.messages = {"foo": 'No greeting services are currently available'};
+                          }
+                      } else {
+                          result = { "available": ["foo"], "messages": { "foo": 'An error occurred!'}};
+                      }
+                      
+                      repopulateResults(result, div);
                   }
               };
         
-          name = document.getElementById("name").value;
+          var path = '/hello/sayHello';
+          var name = document.getElementById("name");
+          
+          if(name && name.value) {
+              path = path + '?name=' + name.value;
+          }
         
-          req.open("GET", "/hello/sayHello?name=" + name, true);
+          req.open("GET", path);
           req.send();
       };
       
+      doUpdate();
     </script>
   </head>
   
@@ -47,10 +84,9 @@
         </form>
       </div>
     </div>
+    
     <div class="row">    
-      <div class="span4">
-        <div id="greetings" class="lead text-center"/>
-      </div>
+      <div class="span9 lead text-center" id="results"/>
     </div>
   </body>
 </html>

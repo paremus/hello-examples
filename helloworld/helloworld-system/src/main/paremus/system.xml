@@ -6,6 +6,10 @@
     
     <!--  Declarative Services Greeting service  -->
     <system.part name="hello-app">
+    
+        <config pid="com.example.hello.impl.GreetingImpl">
+            <property name="type" value="remote"/>
+        </config>
         
         <contract features="(AppLayer=true)"/>
 
@@ -14,6 +18,14 @@
     <!-- Remote Web viewer -->
     <system.part name="hello-web">
 
+        <config pid="com.example.hello.web.HelloWorldServlet">
+            <property name="greeting.target" value="(type=local)"/>
+        </config>
+        
+        <config pid="com.example.hello.impl.GreetingImpl">
+            <property name="type" value="local"/>
+        </config>
+        
         <contract features="(WebLayer=true)"/>
 
     </system.part>

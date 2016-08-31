@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paremus Service Fabric Hello Example</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    
+    <script>
+      doUpdate = function() {
+       
+          req = new XMLHttpRequest();
+        
+          req.onreadystatechange = function() {
+                  if (req.readyState==4) {
+                      document.getElementById("greetings").innerHTML = 
+                           req.status == 200 ? req.responseText : "An error occurred!";
+                  }
+              };
+        
+          name = document.getElementById("name").value;
+        
+          req.open("GET", "/hello/sayHello?name=" + name, true);
+          req.send();
+      };
+      
+    </script>
+  </head>
+  
+  <body>
+    <div class="container-fluid">
+    <div class="row">
+      <div class="span4 logo">
+        <img border="0" src="img/logo-paremus.png" alt="Paremus Ltd">
+      </div>
+      <div class="span4">
+        <h4>Welcome to the Hello Example</h4>
+      </div>
+    </div>
+    
+    <div class="row">    
+      <div class="span5">
+        <form class="form-inline" role="form">
+          <input id="name" type="text" placeholder="Enter your name"/> 
+          <button type="submit" class="btn btn-primary" 
+                  onclick="doUpdate(); return false;">Say Hello!</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">    
+      <div class="span4">
+        <div id="greetings" class="lead text-center"/>
+      </div>
+    </div>
+  </body>
+</html>

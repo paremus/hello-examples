@@ -1,0 +1,8 @@
+generated/
+target/
+bin/
+.idea/
+*.iml
+.settings/
+.classpath
+.project

@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
-        echo 'Hello Jenkins'
+        echo 'Hello Jenkins again'
       }
     }
   }
